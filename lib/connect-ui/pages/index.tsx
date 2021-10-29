@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { DynamoDB } from 'aws-sdk';
+import { AWS_REGION } from '../consts';
 
 const Home: NextPage<{ results: string | undefined }> = ({ results }) => {
     return (
@@ -78,7 +79,7 @@ const Home: NextPage<{ results: string | undefined }> = ({ results }) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const dynamo = new DynamoDB.DocumentClient({ region: 'eu-west-2' });
+    const dynamo = new DynamoDB.DocumentClient({ region: AWS_REGION });
 
     const results = await dynamo.scan({
         TableName: 'vanity-numbers'

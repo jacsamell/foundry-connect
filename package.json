@@ -1,8 +1,8 @@
 {
-  "name": "foundary-connect",
+  "name": "foundry-connect",
   "version": "0.1.0",
   "bin": {
-    "foundary-connect": "bin/foundary-connect.js"
+    "foundry-connect": "bin/foundry-connect.js"
   },
   "scripts": {
     "build": "tsc",
@@ -14,6 +14,7 @@
   "devDependencies": {
     "@aws-cdk/assert": "1.129.0",
     "@types/aws-lambda": "^8.10.84",
+    "@types/cfn-response": "^1.0.4",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
     "aws-cdk": "1.129.0",
@@ -26,10 +27,12 @@
   "dependencies": {
     "@aws-cdk/aws-connect": "^1.129.0",
     "@aws-cdk/aws-dynamodb": "^1.129.0",
+    "@aws-cdk/aws-iam": "^1.129.0",
     "@aws-cdk/aws-lambda-event-sources": "^1.129.0",
     "@aws-cdk/aws-lambda-nodejs": "^1.129.0",
     "@aws-cdk/aws-route53-targets": "^1.129.0",
     "@aws-cdk/core": "1.129.0",
+    "@aws-cdk/custom-resources": "^1.129.0",
     "@sls-next/cdk-construct": "^3.5.2",
     "aws-sdk": "^2.1017.0",
     "cdk-nextjs-serverless": "^1.0.5",
