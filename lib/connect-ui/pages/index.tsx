@@ -78,7 +78,7 @@ const Home: NextPage<{ results: string | undefined }> = ({ results }) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const dynamo = new DynamoDB.DocumentClient();
+    const dynamo = new DynamoDB.DocumentClient({ region: 'eu-west-2' });
 
     const results = await dynamo.scan({
         TableName: 'vanity-numbers'

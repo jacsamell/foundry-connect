@@ -3,6 +3,7 @@ import { NodejsFunction, SourceMapMode } from '@aws-cdk/aws-lambda-nodejs';
 import { Table, AttributeType } from '@aws-cdk/aws-dynamodb';
 import { NextJSServerless } from 'cdk-nextjs-serverless';
 import { PriceClass } from '@aws-cdk/aws-cloudfront';
+import { NextJSLambdaEdge } from '@sls-next/cdk-construct';
 
 export class FoundaryConnectStack extends cdk.Stack {
     readonly table: Table;
@@ -48,16 +49,25 @@ export class ConnectUiStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props: cdk.StackProps & { connectStack: FoundaryConnectStack }) {
         super(scope, id, props);
 
-        new NextJSServerless(this, 'connect-ui', {
-            nextJSDir: './lib/connect-ui',
-            cloudFrontDistributionProps: {
-                priceClass: PriceClass.PRICE_CLASS_100
+        // new NextJSServerless(this, 'connect-ui', {
+        //     nextJSDir: './lib/connect-ui',
+        //     cloudFrontDistributionProps: {
+        //         priceClass: PriceClass.PRICE_CLASS_100
+        //     }
+        // }).promise()
+        //     .then(nextApp => nextApp.lambdaFunctionVersions.map(version => props.connectStack.table.grantReadData(version)))
+        //     .catch(err => {
+        //         console.error(err);
+        //         process.exit(1);
+        //     })
+
+        const defaultNextLambda = new NextJSLambdaEdge(this, "connect-ui", {
+            serverlessBuildOutDir: "./build",
+            cloudfrontProps: {
+                priceClass: PriceClass.PRICE_CLASS_100,
             }
-        }).promise()
-            .then(nextApp => nextApp.lambdaFunctionVersions.map(version => props.connectStack.table.grantReadData(version)))
-            .catch(err => {
-                console.error(err);
-                process.exit(1);
-            })
+        }).defaultNextLambda;
+
+        props.connectStack.table.grantReadData(defaultNextLambda)
     }
 }
