@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy": "cdk deploy --all --require-approval never"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.129.0",
@@ -25,9 +26,13 @@
   "dependencies": {
     "@aws-cdk/aws-connect": "^1.129.0",
     "@aws-cdk/aws-dynamodb": "^1.129.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.129.0",
     "@aws-cdk/aws-lambda-nodejs": "^1.129.0",
+    "@aws-cdk/aws-route53-targets": "^1.129.0",
     "@aws-cdk/core": "1.129.0",
+    "@sls-next/cdk-construct": "^3.5.2",
     "aws-sdk": "^2.1017.0",
+    "cdk-nextjs-serverless": "^1.0.5",
     "module": "^1.2.5",
     "source-map-support": "^0.5.20"
   }

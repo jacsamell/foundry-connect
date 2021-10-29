@@ -18,5 +18,5 @@ export const handler: ConnectContactFlowHandler = async (event) => {
         Item: { phoneNumber: phoneNumber, vanityNumbers: vanityNumbers }
     }).promise();
 
-    return { message: `Your possible vanity numbers are: ${vanityNumbers.join(' or, ')}` };
+    return { message: `<speak>Your possible vanity numbers are: ${vanityNumbers.map(vanityNo => `<say-as interpret-as="telephone">${vanityNo}</say-as>`).join(' or ')}</speak>` };
 }
