@@ -37,6 +37,7 @@
     "aws-sdk": "^2.1017.0",
     "cdk-nextjs-serverless": "^1.0.5",
     "module": "^1.2.5",
-    "source-map-support": "^0.5.20"
+    "source-map-support": "^0.5.20",
+    "t9-plus": "^3.1.3"
   }
 }

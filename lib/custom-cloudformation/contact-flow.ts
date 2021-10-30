@@ -8,7 +8,7 @@ export const vanityContactFlow = {
             'b9d8bbbd-520e-4b67-b1aa-184b6d6871d5': { Position: { x: 759, y: 283 } },
             'ab21a188-24f2-4ef0-a630-11d957f2e7cb': { Position: { x: 1051, y: 58 } },
             'b582d384-f333-4c80-af46-ac85757a090e': { Position: { x: 427, y: 89 } },
-            '0f906d6d-5a36-422e-b122-dd4b4aadb7b5': { Position: { x: 691, y: 15 } },
+            '0f906d6d-5a36-422e-b122-dd4b4aadb7b5': { Position: { x: 691, y: 15 } }
         }
     },
     Actions: [
@@ -18,7 +18,7 @@ export const vanityContactFlow = {
             Transitions: {
                 NextAction: 'b582d384-f333-4c80-af46-ac85757a090e'
             },
-            Parameters: { 'FlowLoggingBehavior': 'Enabled' },
+            Parameters: { 'FlowLoggingBehavior': 'Enabled' }
         },
         {
             Identifier: 'b9d8bbbd-520e-4b67-b1aa-184b6d6871d5',
@@ -26,7 +26,7 @@ export const vanityContactFlow = {
             Transitions: {
                 NextAction: 'ab21a188-24f2-4ef0-a630-11d957f2e7cb'
             },
-            Parameters: { 'Text': 'An error has occurred, please try again later' },
+            Parameters: { 'Text': 'An error has occurred, please try again later' }
         },
         {
             Identifier: 'ab21a188-24f2-4ef0-a630-11d957f2e7cb',
@@ -50,7 +50,7 @@ export const vanityContactFlow = {
             Transitions: {
                 NextAction: 'ab21a188-24f2-4ef0-a630-11d957f2e7cb'
             },
-            Parameters: { Text: '$.External.message' },
-        },
-    ],
+            Parameters: { Text: '$.External.message' }
+        }
+    ]
 };

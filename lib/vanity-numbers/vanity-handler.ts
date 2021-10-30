@@ -1,6 +1,7 @@
+import 'source-map-support/register';
 import { ConnectContactFlowHandler } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
-import 'source-map-support/register';
+import { generateVanityNumbers } from './vanity-generator';
 
 const dynamo = new DynamoDB.DocumentClient();
 
@@ -9,28 +10,15 @@ export const handler: ConnectContactFlowHandler = async (event) => {
 
     const phoneNumber = event.Details.ContactData.CustomerEndpoint?.Address;
     if (!phoneNumber) {
-        throw new Error("Can't find customer phone number");
+        throw new Error('Cannot find customer phone number');
     }
 
-    const vanityNumbers = ['hello', 'world', phoneNumber];
+    const vanityNumbers = generateVanityNumbers(phoneNumber);
 
     await dynamo.put({
         TableName: 'vanity-numbers',
-        Item: { phoneNumber: phoneNumber, vanityNumbers: vanityNumbers }
+        Item: { phoneNumber: phoneNumber, vanityNumbers: vanityNumbers, insertTime: new Date().valueOf() }
     }).promise();
 
     return { message: `<speak>Your possible vanity numbers are: ${vanityNumbers.map(vanityNo => `<say-as interpret-as="telephone">${vanityNo}</say-as>`).join(' or, ')}</speak>` };
-}
-
-const numberToLetters = {
-    '0': ['0'],
-    '1': ['1'],
-    '2': ['A', 'B', 'C'],
-    '3': ['D', 'E', 'F'],
-    '4': ['G', 'H', 'I'],
-    '5': ['J', 'K', 'L'],
-    '6': ['M', 'N', 'O'],
-    '7': ['P', 'Q', 'R', 'S'],
-    '8': ['T', 'U', 'V'],
-    '9': ['W', 'X', 'Y', 'Z'],
-}
+};

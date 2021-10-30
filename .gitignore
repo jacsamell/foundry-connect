@@ -10,3 +10,5 @@ cdk.out
 build
 .idea
 *.iml
+
+.DS_Store

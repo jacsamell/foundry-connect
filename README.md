@@ -2,13 +2,19 @@
 An example implementation of a Amazon Connect Contact Flow for generating vanity numbers and UI to see the latest customer calls and numbers
 
 ## Prerequisites 
+* NPM is required to install dependencies
 * Authenticate against AWS using access key and id in region eu-west-2
 * Run `npx cdk bootstrap` in the regions eu-west-2 and us-east-1
 * You will need exactly 1 Amazon connect instance in eu-west-2
 
+## Installation
+* Run `npm install` at the top level and also in the `lib/connect-ui` directory
+
 ## Deployment
 1. To deploy the full application simply run `npm run deploy` and wait for CDK to deploy the CloudFormation stacks
-
+   * You can also deploy the stacks individually if you prefer: 
+     * `npm run cdk deploy FoundryConnectStack`
+     * `npm run cdk deploy FoundryConnectUiStack`
 2. After the stacks are deployed you will need to add the Lambda to the Connect instance to grant the IAM permission:
 
 [Amazon Connect](https://eu-west-2.console.aws.amazon.com/connect/v2/app/instances) > Select Instance > Contact flows > AWS Lambda > Add Lambda Function
@@ -34,6 +40,9 @@ The UI is deployed as a serverside rendered Next.js app to CloudFront using Lamb
 * Needs a proper CICD solution setting up e.g CircleCI or GitHub Actions
 * The Instance of connect needs IAM permissions to execute the lambda function - theoretically the custom resource lambda could grant this permission to the existing instance but this doesn't seem ideal 
 * Contact Flow won't automatically be deployed if you change the template
+
+* Overwrites for repeat callers
+* UI does a scan on dynamo db table
 
 * Custom cfn functions timing out without error handling, was difficult to test, ended up deploying lots of different versions while they were clearing up
 * Recreating the flow in Connect Flow Lanugage was difficult, why is export not the same format?

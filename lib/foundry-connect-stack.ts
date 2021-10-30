@@ -14,12 +14,13 @@ export class FoundryConnectStack extends cdk.Stack {
         super(scope, id, props);
 
         const vanityLambda = new NodejsFunction(this, 'vanity-lambda', {
-            entry: './lib/handlers/vanity.ts',
+            entry: './lib/vanity-numbers/vanity-handler.ts',
             functionName: 'vanity-lambda',
             bundling: {
                 sourceMap: true,
                 sourceMapMode: SourceMapMode.DEFAULT,
             },
+            timeout: Duration.minutes(1)
         });
 
         this.table = new Table(this, 'vanity-table', {
@@ -30,7 +31,7 @@ export class FoundryConnectStack extends cdk.Stack {
         this.table.grantWriteData(vanityLambda);
 
         const customCfnContactFlowLambda = new NodejsFunction(this, 'custom-cfn-contact-flow-lambda', {
-            entry: './lib/handlers/custom-contact-flow-cfn.ts',
+            entry: './lib/custom-cloudformation/handler.ts',
             functionName: 'custom-cfn-contact-flow-lambda',
             bundling: {
                 sourceMap: true,
@@ -53,7 +54,7 @@ export class FoundryConnectStack extends cdk.Stack {
 
         new CustomResource(this, 'contact-flow', {
             serviceToken: provider.serviceToken, properties: {
-                version: 2 // change the version to force an update
+                version: 3 // change the version to force an update
             }
         })
     }
