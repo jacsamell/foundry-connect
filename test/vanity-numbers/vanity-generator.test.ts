@@ -6,9 +6,7 @@ test('blah', () => {
     const desiredCount = 5;
 
     // last 6 are the ones to make vanity
-    const phoneNumber = '+447776482520';
-
-    console.log(words.length);
+    const phoneNumber = '+447968736753';
 
     for (let i = 0; i < 10; i++) {
         // const lastDigits = Math.round(Math.random() * 1000000).toString().padStart(6, '0');

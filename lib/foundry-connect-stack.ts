@@ -14,7 +14,7 @@ export class FoundryConnectStack extends cdk.Stack {
         super(scope, id, props);
 
         const vanityLambda = new NodejsFunction(this, 'vanity-lambda', {
-            entry: './lib/vanity-numbers/vanity-handler.ts',
+            entry: './lib/vanity-numbers/handler.ts',
             functionName: 'vanity-lambda',
             bundling: {
                 sourceMap: true,

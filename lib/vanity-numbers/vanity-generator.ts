@@ -1,13 +1,14 @@
 import { T9Search } from 't9-plus';
 import { words } from './words';
 
-// Some numbers have limited options (e.g 01100111000) so we may not always get the desired count
-const desiredCount = 5;
 
 const t9 = new T9Search();
 t9.setDict(words);
 
-export const generateVanityNumbers = (phoneNumber: string) => {
+/**
+ * Some numbers have limited options (e.g 01100111000) so we may not always get the desired count
+ */
+export const generateVanityNumbers = (phoneNumber: string, desiredCount: number) => {
     // last 6 are the ones to make vanity section out of
     const lastDigits = phoneNumber.substr(phoneNumber.length - 6);
     const startDigits = phoneNumber.substr(0, phoneNumber.length - 6);
@@ -19,7 +20,7 @@ export const generateVanityNumbers = (phoneNumber: string) => {
  * The algorithm looks for words that start with the letter options from the passed in words.
  * Shorter words are preferred as this will give more (or all) of the word in the vanity number which should be more recognisable
  * If the desired number of words are not found then a number is removed from the start and the process is repeated
- * The results from the shorter number are then combined with the letter options of the removed number to give all prefix options for the shorter word
+ * The results from the shorter number are then combined with a random letter corresponding to the removed letter from the start
  * This process is repeated until the desired number of options is obtained
  */
 const getVanityNumbers = (numbers: string, desiredCount: number) => {
@@ -49,7 +50,7 @@ const getVanityNumbers = (numbers: string, desiredCount: number) => {
 
         const firstNumber = numbers.substr(0, 1);
         const firstNumberOptions = numberToLetters[firstNumber];
-        const options = shorterWords.map(word => firstNumberOptions[Math.round(Math.random() * firstNumberOptions.length)] + word);
+        const options = shorterWords.map(word => firstNumberOptions[Math.floor(Math.random() * firstNumberOptions.length)] + word);
 
         for (let i = 0; i < options.length && vanityNumbers.length < desiredCount; i++) {
             if (!vanityNumbers.includes(options[i])) {
