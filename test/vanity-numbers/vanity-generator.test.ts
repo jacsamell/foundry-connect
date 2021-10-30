@@ -1,20 +1,17 @@
-import { generateVanityNumbers } from '../../lib/vanity-numbers/vanity-generator';
-import { words } from '../../lib/vanity-numbers/words';
+import { generateVanityNumbers } from "../../lib/vanity-numbers/vanity-generator";
 
-test('blah', () => {
-    // Some numbers have limited options (e.g 01100111000) so we may not always get the desired count
-    const desiredCount = 5;
+jest.spyOn(global.Math, "random").mockReturnValue(0.54321);
 
-    // last 6 are the ones to make vanity
-    const phoneNumber = '+447968736753';
+describe("vanity generator", () => {
+    it.each([
+        ["+447968736753", ["+447968PEOPLE", "+447968SEMPLE", "+447968RFORKE", "+447968RDORLE", "+447968REORLE"]],
+        ["+447887872467", ["+447887TRAINS", "+447887UPAINS", "+447887URAINS", "+447887UPAIMP", "+447887USCHOR"]],
+        ["+447776051600", ["+4477760J1M00", "+4477760J1O00", "+4477760K1M00", "+4477760K1O00", "+4477760L1M00"]],
+        ["+440010002010", ["+44001000A010", "+44001000B010", "+44001000C010"]],
+        ["+440010001010", []],
+    ])("should generate expected vanity numbers", (phoneNumber, expected) => {
+        const vanityNumbers = generateVanityNumbers(phoneNumber, 5);
 
-    for (let i = 0; i < 10; i++) {
-        // const lastDigits = Math.round(Math.random() * 1000000).toString().padStart(6, '0');
-        // const lastDigits = '736753';
-        const vanityNumbers = generateVanityNumbers(phoneNumber);
-
-        console.log(phoneNumber + ' : ' + vanityNumbers)
-    }
-
-    // expect(vanityNumbers).toEqual(['01234567890'])
-})
+        expect(vanityNumbers).toEqual(expected);
+    });
+});

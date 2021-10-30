@@ -1,3 +1,9 @@
+/**
+ * Top 100,000 english words
+ * Sources:
+ * http://en.wiktionary.org/wiki/Wiktionary:Frequency_lists#Top_English_words_lists
+ * https://gist.github.com/h3xx/1976236
+ */
 export const words = [
 "the",
 "of",
